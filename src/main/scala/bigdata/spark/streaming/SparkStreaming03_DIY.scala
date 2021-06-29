@@ -16,7 +16,7 @@ object SparkStreaming03_DIY {
     def main(args: Array[String]): Unit = {
 
         val sparkConf = new SparkConf().setMaster("local[*]").setAppName("SparkStreaming")
-        val ssc = new StreamingContext(sparkConf, Seconds(3))
+        val ssc = new StreamingContext(sparkConf, Seconds(1))
 
         val messageDS: ReceiverInputDStream[String] = ssc.receiverStream(new MyReceiver())
         messageDS.print()
@@ -37,7 +37,7 @@ object SparkStreaming03_DIY {
                     while ( flg ) {
                         val message = "采集的数据为：" + new Random().nextInt(10).toString
                         store(message)
-                        Thread.sleep(500)
+                        Thread.sleep(2000)
                     }
                 }
             }).start()
